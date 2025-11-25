@@ -9,6 +9,7 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+    publicPath: '',
   },
 
   plugins: [
@@ -34,7 +35,10 @@ module.exports = {
   },
 
   devServer: {
-    static: './',
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
     port: 8080,
   }
 };
+
