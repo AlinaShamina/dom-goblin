@@ -6,12 +6,14 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
+
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '', 
+    publicPath: './', 
     clean: true,
   },
+
   module: {
     rules: [
       {
@@ -27,7 +29,7 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'img/[name][ext]',
+          filename: 'img/[name][ext]', 
         },
       },
       {
@@ -36,6 +38,7 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
@@ -45,9 +48,11 @@ module.exports = {
       filename: '[name].css',
     }),
   ],
+
   optimization: {
     minimizer: ['...', new CssMinimizerPlugin()],
   },
+
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
