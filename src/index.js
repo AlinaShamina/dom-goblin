@@ -1,18 +1,19 @@
 import './styles.css';
-import goblin from './img/goblin.png';
+const goblin = 'https://github.com/netology-code/ahj-homeworks/blob/AHJ-50/dom/pic/goblin.png?raw=true';
+
 
 const container = document.getElementById('game-container');
 
 const board = document.createElement('div');
 board.classList.add('board');
-container.appendChild(board);
+container.append(board);
 
 const cells = [];
 
-for (let i = 0; i < 16; i += 1) {
+for (let i = 0; i < 16; i++) {
   const cell = document.createElement('div');
   cell.classList.add('cell');
-  board.appendChild(cell);
+  board.append(cell);
   cells.push(cell);
 }
 
@@ -21,6 +22,7 @@ goblinImg.classList.add('goblin');
 goblinImg.src = goblin;
 
 let currentIndex = -1;
+let goblinInterval;
 
 function getRandomIndex() {
   let index = Math.floor(Math.random() * cells.length);
@@ -32,9 +34,17 @@ function getRandomIndex() {
 
 function moveGoblin() {
   const newIndex = getRandomIndex();
-  cells[newIndex].appendChild(goblinImg);
+  cells[newIndex].append(goblinImg);
   currentIndex = newIndex;
 }
 
-moveGoblin();
-setInterval(moveGoblin, 1000);
+function startGame() {
+  moveGoblin();
+  goblinInterval = setInterval(moveGoblin, 1000);
+}
+
+function stopGame() {
+  clearInterval(goblinInterval);
+}
+
+startGame();
