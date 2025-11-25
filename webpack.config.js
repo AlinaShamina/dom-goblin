@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'), // сборка в dist/
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '', 
     clean: true,
   },
@@ -26,7 +26,9 @@ module.exports = {
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
-        generator: { filename: 'img/[name][ext]' },
+        generator: {
+          filename: 'img/[name][ext]',
+        },
       },
       {
         test: /\.html$/i,
@@ -47,7 +49,9 @@ module.exports = {
     minimizer: ['...', new CssMinimizerPlugin()],
   },
   devServer: {
-    static: { directory: path.join(__dirname, 'dist') },
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
     port: 8080,
     open: true,
   },
