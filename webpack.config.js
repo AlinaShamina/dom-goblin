@@ -4,14 +4,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
-  mode: 'development', 
+  mode: 'development',
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'), // сборка в dist/
     publicPath: '', 
     clean: true,
-   publicPath: '/dom-goblin/',
   },
   module: {
     rules: [
@@ -27,9 +26,7 @@ module.exports = {
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
-        generator: {
-          filename: 'img/[name][ext]', 
-        },
+        generator: { filename: 'img/[name][ext]' },
       },
       {
         test: /\.html$/i,
@@ -39,7 +36,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html', 
+      template: './src/index.html',
       filename: 'index.html',
     }),
     new MiniCssExtractPlugin({
@@ -50,11 +47,8 @@ module.exports = {
     minimizer: ['...', new CssMinimizerPlugin()],
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
+    static: { directory: path.join(__dirname, 'dist') },
     port: 8080,
     open: true,
   },
 };
-
