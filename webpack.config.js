@@ -1,17 +1,17 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const path = require("path");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
+  mode: "development",
+
+  entry: "./src/index.js",
 
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: './', 
+    path: path.resolve(__dirname, "dist"),
     clean: true,
+    filename: "main.js",
   },
 
   module: {
@@ -19,45 +19,53 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
-      },
-      {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'img/[name][ext]', 
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
         },
       },
       {
-        test: /\.html$/i,
-        loader: 'html-loader',
+        test: /\.html$/,
+        use: ["html-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "img/[name][ext]",
+        },
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
 
+  optimization: {
+    minimizer: [`...`, new CssMinimizerPlugin()],
+  },
+
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
+    new HtmlWebPackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: "[name].css",
+      chunkFilename: "[id].css",
     }),
   ],
 
-  optimization: {
-    minimizer: ['...', new CssMinimizerPlugin()],
-  },
-
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.resolve(__dirname, "dist"),
     },
+    compress: true,
     port: 8080,
     open: true,
+    hot: true,
   },
 };
