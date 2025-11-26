@@ -1,20 +1,14 @@
-# Goblin DOM Game
+# Игра с гоблинами (DOM Goblin Game)
+
+Мини-игра, где гоблины появляются в случайных клетках игрового поля 4x4, и игрок должен "поймать" их кликом.  
+Проект собран с использованием Webpack, Babel, ESLint, Jest и GitHub Actions для автоматического деплоя на GitHub Pages.
 
 ![Build Status](https://github.com/AlinaShamina/dom-goblin/actions/workflows/deploy.yml/badge.svg)
 
+[Перейти к игре](https://alinashamina.github.io/dom-goblin/)
 
-Игровое поле 4×4 с гоблином, который перемещается каждые 1000 мс в случайную клетку.  
-Перемещение сделано без removeChild — только через новый родительский DOM-узел.
 
-## GitHub Pages
-https://alinashamina.github.io/dom-goblin/
+## Скрипты
 
-## Используемые технологии
-- Webpack
-- Babel
-- ESLint
-- Webpack Dev Server
-- CSS Loader
-- File Loader
-- GitHub Actions
-- GitHub Pages
+- `yarn start` — запуск проекта в режиме разработки (webpack-dev-server)
+- `yarn build` — сборка проекта для продакшн (dist/)
