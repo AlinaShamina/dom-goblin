@@ -1,6 +1,5 @@
 import "./style.css";
-import Game from "./js/Game";
-
+import Game from "./js/Game.js"; 
 const container = document.getElementById("game");
 const game = new Game(container);
 game.init();
