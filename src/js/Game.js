@@ -1,5 +1,6 @@
 import Goblin from "./Goblin";
-import { hitCursor } from "./cursor";
+import { setHammerCursor } from "./Cursor"; 
+
 
 export default class Game {
   constructor(container) {
