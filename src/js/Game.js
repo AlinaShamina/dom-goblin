@@ -1,4 +1,5 @@
 import Goblin from "./Goblin";
+import { hitCursor } from "./cursor";
 
 export default class Game {
   constructor(container) {
@@ -8,12 +9,16 @@ export default class Game {
     this.index = null;
     this.missed = 0;
     this.score = 0;
+
+    this.scoreEl = document.getElementById("hits");
+    this.missedEl = document.getElementById("misses");
+
     this.interval = null;
   }
 
-  init() {
-    this.drawField();
-    this.start();
+  updateScore() {
+    this.scoreEl.textContent = `Попадания: ${this.score}`;
+    this.missedEl.textContent = `Промахи: ${this.missed}`;
   }
 
   drawField() {
@@ -26,18 +31,20 @@ export default class Game {
       cell.addEventListener("click", () => {
         if (i === this.index) {
           this.score++;
+          hitCursor(); 
           this.goblin.element.remove();
+          this.index = null; 
+          this.updateScore();
         }
       });
     }
   }
 
   start() {
-  setTimeout(() => {
-    this.interval = setInterval(() => this.moveGoblin(), 1000);
-  }, 500);
-}
-
+    setTimeout(() => {
+      this.interval = setInterval(() => this.moveGoblin(), 1000);
+    }, 500);
+  }
 
   moveGoblin() {
     if (this.index !== null) {
@@ -47,6 +54,7 @@ export default class Game {
         alert("Игра окончена!");
         return;
       }
+      this.updateScore();
     }
 
     let newIndex;
@@ -57,5 +65,11 @@ export default class Game {
     this.index = newIndex;
 
     this.cells[newIndex].append(this.goblin.element);
+  }
+
+  init() {
+    this.drawField();
+    this.start();
+    this.updateScore();
   }
 }
